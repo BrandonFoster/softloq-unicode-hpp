@@ -14,7 +14,7 @@
 namespace Softloq::Unicode
 {
     /** @brief Unicode error handle. */
-    struct Error
+    struct SOFTLOQ_UNICODE_API Error
     {
         /** @brief The error message. */
         std::string message;
