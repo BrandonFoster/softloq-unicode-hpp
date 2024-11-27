@@ -4,7 +4,7 @@
 /**
  * @author Brandon Foster
  * @file error.hpp
- * @version 1.0.0
+ * @version 1.0.1
  * @brief Holds an error that occurs in a Unicode function.
  */
 
