@@ -2,7 +2,7 @@
 
 namespace Softloq::Unicode
 {
-    SOFTLOQ_UNICODE_API const bool ConvertUTF8ToCodepoint(const std::string_view &utf8, char32_t &codepoint, size_t &byte_count, Error *err)
+    SOFTLOQ_UNICODE_API const bool convertUTF8ToCodepoint(const std::string_view &utf8, char32_t &codepoint, size_t &byte_count, Error *err)
     {
         if (utf8.empty())
             return false;
@@ -64,7 +64,7 @@ namespace Softloq::Unicode
         return false;
     }
 
-    SOFTLOQ_UNICODE_API const bool ConvertCodepointToUTF8(const char32_t codepoint, std::string &utf8, Error *err)
+    SOFTLOQ_UNICODE_API const bool convertCodepointToUTF8(const char32_t codepoint, std::string &utf8, Error *err)
     {
         if (codepoint <= 0x007F)
         {
