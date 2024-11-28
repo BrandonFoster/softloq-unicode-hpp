@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['convertcodepointtoutf8_0',['ConvertCodepointToUTF8',['../d0/df5/unicode_8hpp.html#a8b1553db9ad261b7b534b9ee5370353f',1,'Softloq::Unicode']]],
-  ['convertutf8tocodepoint_1',['ConvertUTF8ToCodepoint',['../d0/df5/unicode_8hpp.html#a00da516582fa74f19a0ec468b08ab703',1,'Softloq::Unicode']]]
+  ['convertcodepointtoutf8_0',['convertCodepointToUTF8',['../d0/df5/unicode_8hpp.html#ae4730be8ad280c96596262feec6bbe81',1,'Softloq::Unicode']]],
+  ['convertutf8tocodepoint_1',['convertUTF8ToCodepoint',['../d0/df5/unicode_8hpp.html#a10ff325be46ffb023df497eacb7bb204',1,'Softloq::Unicode']]]
 ];

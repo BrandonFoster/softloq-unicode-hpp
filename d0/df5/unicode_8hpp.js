@@ -1,5 +1,5 @@
 var unicode_8hpp =
 [
-    [ "ConvertCodepointToUTF8", "d0/df5/unicode_8hpp.html#a8b1553db9ad261b7b534b9ee5370353f", null ],
-    [ "ConvertUTF8ToCodepoint", "d0/df5/unicode_8hpp.html#a00da516582fa74f19a0ec468b08ab703", null ]
+    [ "convertCodepointToUTF8", "d0/df5/unicode_8hpp.html#ae4730be8ad280c96596262feec6bbe81", null ],
+    [ "convertUTF8ToCodepoint", "d0/df5/unicode_8hpp.html#a10ff325be46ffb023df497eacb7bb204", null ]
 ];
