@@ -1,5 +1,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-### Version 1.0.1
+### Version 1.0.2
 # About
 C++ headers for basic unicode functions.
 

@@ -1,23 +1,43 @@
-cmake_minimum_required(VERSION 3.5)
-project(softloq-unicode-project VERSION 1.0.1 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.10)
+project(softloq-unicode-project VERSION 1.0.2 LANGUAGES CXX)
 option(SOFTLOQ_UNICODE_BUILD_SHARED "Generate Shared Library" OFF)
 
+# Load Global Settings
 # Require C++
+set(SOFTLOQ_UNICODE_CMAKE_CXX_EXTENSIONS_TMP ${CMAKE_CXX_EXTENSIONS})
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD_REQUIRED)
+if(NOT CMAKE_CXX_STANDARD_REQUIRED)
+    set(SOFTLOQ_UNSET_CMAKE_CXX_STANDARD_REQUIRED)
+    set(CMAKE_CXX_STANDARD_REQUIRED)
+endif()
 
-# Library
+# Library settings
 if(SOFTLOQ_UNICODE_BUILD_SHARED)
     set(SOFTLOQ_UNICODE_LIBRARY_TYPE SHARED)
-    list(APPEND SOFTLOQ_UNICODE_PRIVATE_DEFINITIONS SOFTLOQ_UNICODE_BUILD_API)
+    unset(SOFTLOQ_UNICODE_PUBLIC_DEFINITIONS)
     list(APPEND SOFTLOQ_UNICODE_PUBLIC_DEFINITIONS SOFTLOQ_UNICODE_USE_API)
+    unset(SOFTLOQ_UNICODE_PRIVATE_DEFINITIONS)
+    list(APPEND SOFTLOQ_UNICODE_PRIVATE_DEFINITIONS SOFTLOQ_UNICODE_BUILD_API)
 else()
     set(SOFTLOQ_UNICODE_LIBRARY_TYPE STATIC)
 endif()
 
-file(GLOB_RECURSE SOFTLOQ_UNICODE_CXX_FILES src/**.cpp)
-add_library(softloq-unicode ${SOFTLOQ_UNICODE_LIBRARY_TYPE} ${SOFTLOQ_UNICODE_CXX_FILES})
-set_target_properties(softloq-unicode PROPERTIES CXX_STANDARD 23)
-target_include_directories(softloq-unicode PUBLIC include)
-target_compile_definitions(softloq-unicode PRIVATE ${SOFTLOQ_UNICODE_PRIVATE_DEFINITIONS})
-target_compile_definitions(softloq-unicode PUBLIC ${SOFTLOQ_UNICODE_PUBLIC_DEFINITIONS})
+# Library build (All settings merged)
+if(NOT TARGET softloq-unicode)
+    file(GLOB_RECURSE SOFTLOQ_UNICODE_CXX_FILES src/**.cpp)
+    add_library(softloq-unicode ${SOFTLOQ_UNICODE_LIBRARY_TYPE} ${SOFTLOQ_UNICODE_CXX_FILES})
+    target_include_directories(softloq-unicode PUBLIC include)
+    target_compile_definitions(softloq-unicode PUBLIC ${SOFTLOQ_UNICODE_PUBLIC_DEFINITIONS})
+    target_compile_definitions(softloq-unicode PRIVATE ${SOFTLOQ_UNICODE_PRIVATE_DEFINITIONS})
+    if(NOT CMAKE_CXX_STANDARD) # Default C++ Standard
+        set_target_properties(softloq-unicode PROPERTIES CXX_STANDARD 23)
+    endif()
+endif()
+
+# Unload Global Settings
+set(CMAKE_CXX_EXTENSIONS ${SOFTLOQ_UNICODE_CMAKE_CXX_EXTENSIONS_TMP})
+unset(SOFTLOQ_UNICODE_CMAKE_CXX_EXTENSIONS_TMP)
+if(SOFTLOQ_UNSET_CMAKE_CXX_STANDARD_REQUIRED)
+    unset(CMAKE_CXX_STANDARD_REQUIRED)
+    unset(SOFTLOQ_UNSET_CMAKE_CXX_STANDARD_REQUIRED)
+endif()
