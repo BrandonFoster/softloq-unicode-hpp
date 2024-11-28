@@ -26,7 +26,7 @@ namespace Softloq::Unicode
      * @return bool - true on successful conversion else false.
      */
 
-    SOFTLOQ_UNICODE_API const bool ConvertUTF8ToCodepoint(const std::string_view &utf8, char32_t &codepoint, size_t &byte_count, Error *err = nullptr);
+    SOFTLOQ_UNICODE_API const bool convertUTF8ToCodepoint(const std::string_view &utf8, char32_t &codepoint, size_t &byte_count, Error *err = nullptr);
     /**
      * @brief Converts the UTF-8 codepoint to their corresponding UTF-8 character sequence. Appends the sequence to end of a string.
      *
@@ -38,7 +38,7 @@ namespace Softloq::Unicode
      *            Default value: nullptr.
      * @return bool - true on successful conversion else false.
      */
-    SOFTLOQ_UNICODE_API const bool ConvertCodepointToUTF8(const char32_t codepoint, std::string &utf8, Error *err = nullptr);
+    SOFTLOQ_UNICODE_API const bool convertCodepointToUTF8(const char32_t codepoint, std::string &utf8, Error *err = nullptr);
 }
 
 #endif
