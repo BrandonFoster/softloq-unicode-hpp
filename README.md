@@ -163,4 +163,6 @@ Source Files:
 - tests/unicode_test.cpp
 - tests/unicode_macros.cpp
 ## Building
-Set the CMake option SOFTLOQ_UNICODE_BUILD_TESTING to ON. The targets will be built to their respective output folder.
+Set the CMake option SOFTLOQ_UNICODE_BUILD_TESTING to ON.
+
+The targets will be built to their respective output folder.
