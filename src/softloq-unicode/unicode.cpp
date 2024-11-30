@@ -1,5 +1,5 @@
 #include "softloq-unicode/unicode.hpp"
-#include <iostream>
+
 namespace Softloq::Unicode
 {
     SOFTLOQ_UNICODE_API const bool convertUTF8ToCodepoint(const std::string_view &utf8, char32_t &codepoint, size_t &byte_count, Error *err)
