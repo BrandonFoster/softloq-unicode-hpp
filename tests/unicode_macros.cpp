@@ -1,8 +1,5 @@
-#include <softloq-unicode/macros.hpp>
-
 #include <catch2/catch_test_macros.hpp>
-
-#include <cstdint>
+#include <softloq-unicode/macros.hpp>
 
 TEST_CASE("Unicode Macros", "[macros]")
 {
