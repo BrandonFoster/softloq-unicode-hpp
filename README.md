@@ -129,7 +129,7 @@ int main()
     size_t byte_count;
 
     Softloq::Unicode::convertUTF8ToCodepoint(utf8, codepoint, byte_count);
-    std::cout << "0x" << std::hex << static_cast<int>(codepoint) << "\n"; // 0x1610
+    std::cout << "0x" << std::hex << static_cast<int>(codepoint) << "\n"; // 0x1F610
     std::cout << byte_count << "\n"; // 4
 }
 ```
