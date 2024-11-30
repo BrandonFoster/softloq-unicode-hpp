@@ -1,9 +1,11 @@
+[![Unit-Testing](https://github.com/BrandonFoster/softloq-unicode-hpp/actions/workflows/testing.yml/badge.svg)](https://github.com/BrandonFoster/softloq-unicode-hpp/actions/workflows/testing.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ### Version 1.0.3
 # About
+[Documentation](https://brandonfoster.github.io/softloq-unicode-hpp/)
+
 Softloq Software C++ headers for Unicode functions.
-
-
 
 # Usage Example
 ## Codepoint to UTF-8 String
