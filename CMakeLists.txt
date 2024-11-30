@@ -1,43 +1,43 @@
-cmake_minimum_required(VERSION 3.10)
-project(softloq-unicode-project VERSION 1.0.2 LANGUAGES CXX)
-option(SOFTLOQ_UNICODE_BUILD_SHARED "Generate Shared Library" OFF)
+cmake_minimum_required(VERSION 3.10...3.29)
+project(softloq-unicode-project VERSION 1.0.3 LANGUAGES CXX)
+option(BUILD_SHARED_LIBS "Generate Shared Library" OFF)
+option(SOFTLOQ_UNICODE_BUILD_TESTING "Generate Unit-Testing" OFF)
 
-# Load Global Settings
-# Require C++
-set(SOFTLOQ_UNICODE_CMAKE_CXX_EXTENSIONS_TMP ${CMAKE_CXX_EXTENSIONS})
+# Build settings
 set(CMAKE_CXX_EXTENSIONS OFF)
 if(NOT CMAKE_CXX_STANDARD_REQUIRED)
-    set(SOFTLOQ_UNICODE_UNSET_CMAKE_CXX_STANDARD_REQUIRED)
     set(CMAKE_CXX_STANDARD_REQUIRED)
+endif()
+if(NOT CMAKE_CXX_STANDARD)
+    set(CMAKE_CXX_STANDARD 23)
 endif()
 
 # Library settings
-if(SOFTLOQ_UNICODE_BUILD_SHARED)
-    set(SOFTLOQ_UNICODE_LIBRARY_TYPE SHARED)
-    unset(SOFTLOQ_UNICODE_PUBLIC_DEFINITIONS)
-    list(APPEND SOFTLOQ_UNICODE_PUBLIC_DEFINITIONS SOFTLOQ_UNICODE_USE_API)
-    unset(SOFTLOQ_UNICODE_PRIVATE_DEFINITIONS)
-    list(APPEND SOFTLOQ_UNICODE_PRIVATE_DEFINITIONS SOFTLOQ_UNICODE_BUILD_API)
+if(BUILD_SHARED_LIBS)
+    set(LIBRARY_TYPE SHARED)
+    list(APPEND PUBLIC_DEFINITIONS SOFTLOQ_UNICODE_USE_API)
+    list(APPEND PRIVATE_DEFINITIONS SOFTLOQ_UNICODE_BUILD_API)
 else()
-    set(SOFTLOQ_UNICODE_LIBRARY_TYPE STATIC)
+    set(LIBRARY_TYPE STATIC)
 endif()
 
-# Library build (All settings merged)
-if(NOT TARGET softloq-unicode)
-    file(GLOB_RECURSE SOFTLOQ_UNICODE_CXX_FILES src/**.cpp)
-    add_library(softloq-unicode ${SOFTLOQ_UNICODE_LIBRARY_TYPE} ${SOFTLOQ_UNICODE_CXX_FILES})
-    target_include_directories(softloq-unicode PUBLIC include)
-    target_compile_definitions(softloq-unicode PUBLIC ${SOFTLOQ_UNICODE_PUBLIC_DEFINITIONS})
-    target_compile_definitions(softloq-unicode PRIVATE ${SOFTLOQ_UNICODE_PRIVATE_DEFINITIONS})
-    if(NOT CMAKE_CXX_STANDARD) # Default C++ Standard
-        set_target_properties(softloq-unicode PROPERTIES CXX_STANDARD 23)
-    endif()
+# Library build
+file(GLOB_RECURSE CXX_FILES src/**.cpp)
+add_library(softloq-unicode ${LIBRARY_TYPE} ${CXX_FILES})
+target_include_directories(softloq-unicode PUBLIC include)
+target_compile_definitions(softloq-unicode PUBLIC ${PUBLIC_DEFINITIONS})
+target_compile_definitions(softloq-unicode PRIVATE ${PRIVATE_DEFINITIONS})
+
+# Unit testing
+include(CTest)
+if(NOT TARGET Catch2)
+    add_subdirectory(Catch2)
 endif()
 
-# Unload Global Settings
-set(CMAKE_CXX_EXTENSIONS ${SOFTLOQ_UNICODE_CMAKE_CXX_EXTENSIONS_TMP})
-unset(SOFTLOQ_UNICODE_CMAKE_CXX_EXTENSIONS_TMP)
-if(SOFTLOQ_UNICODE_UNSET_CMAKE_CXX_STANDARD_REQUIRED)
-    unset(CMAKE_CXX_STANDARD_REQUIRED)
-    unset(SOFTLOQ_UNICODE_UNSET_CMAKE_CXX_STANDARD_REQUIRED)
+if(BUILD_TESTING AND SOFTLOQ_UNICODE_BUILD_TESTING)
+    add_executable(softloq-unicode-test tests/unicode_test.cpp tests/unicode_macros.cpp)
+    add_dependencies(softloq-unicode-test softloq-unicode)
+    target_link_libraries(softloq-unicode-test softloq-unicode Catch2::Catch2WithMain)
+    include(Catch)
+    catch_discover_tests(softloq-unicode-test)
 endif()
