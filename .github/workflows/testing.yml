@@ -39,9 +39,5 @@ jobs:
       working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: |
-        ls -la
-        ls -la build
-        ls -la build/Debug
-        ./build/softloq-unicode-test --filenames-as-tags --success --colour-mode=ansi
+      run: ./softloq-unicode-test --filenames-as-tags --success --colour-mode=ansi
 
