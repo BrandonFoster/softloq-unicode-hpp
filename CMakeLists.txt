@@ -21,13 +21,16 @@ if(NOT TARGET Catch2)
     add_subdirectory(Catch2)
 endif()
 
+# Default values
+set(LIBRARY_TYPE STATIC)
+set(PUBLIC_DEFINITIONS "")
+set(PRIVATE_DEFINITIONS "")
+
 # Library settings
 if(BUILD_SHARED_LIBS)
     set(LIBRARY_TYPE SHARED)
     set(PUBLIC_DEFINITIONS SOFTLOQ_UNICODE_USE_API)
     set(PRIVATE_DEFINITIONS SOFTLOQ_UNICODE_BUILD_API)
-else()
-    set(LIBRARY_TYPE STATIC)
 endif()
 
 # Library build
