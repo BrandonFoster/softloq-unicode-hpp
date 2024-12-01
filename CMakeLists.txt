@@ -15,11 +15,17 @@ if(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 endif()
 
+# Catch2
+include(CTest)
+if(NOT TARGET Catch2)
+    add_subdirectory(Catch2)
+endif()
+
 # Library settings
 if(BUILD_SHARED_LIBS)
     set(LIBRARY_TYPE SHARED)
-    list(APPEND PUBLIC_DEFINITIONS SOFTLOQ_UNICODE_USE_API)
-    list(APPEND PRIVATE_DEFINITIONS SOFTLOQ_UNICODE_BUILD_API)
+    set(PUBLIC_DEFINITIONS SOFTLOQ_UNICODE_USE_API)
+    set(PRIVATE_DEFINITIONS SOFTLOQ_UNICODE_BUILD_API)
 else()
     set(LIBRARY_TYPE STATIC)
 endif()
@@ -33,11 +39,6 @@ target_compile_definitions(softloq-unicode PUBLIC ${PUBLIC_DEFINITIONS})
 target_compile_definitions(softloq-unicode PRIVATE ${PRIVATE_DEFINITIONS})
 
 # Unit testing
-include(CTest)
-if(NOT TARGET Catch2)
-    add_subdirectory(Catch2)
-endif()
-
 if(BUILD_TESTING AND SOFTLOQ_UNICODE_BUILD_TESTING)
     add_executable(softloq-unicode-test tests/unicode_test.cpp tests/unicode_macros.cpp)
     add_dependencies(softloq-unicode-test softloq::unicode Catch2::Catch2WithMain)
