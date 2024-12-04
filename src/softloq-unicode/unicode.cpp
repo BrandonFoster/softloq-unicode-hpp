@@ -2,7 +2,7 @@
 
 namespace Softloq::Unicode
 {
-    SOFTLOQ_UNICODE_API const bool convertUTF8ToCodepoint(const std::string_view &utf8, char32_t &codepoint, size_t &byte_count, Error *err)
+    SOFTLOQ_UNICODE_API const bool convertUTF8ToCodepoint(const std::string_view &utf8, char32_t &codepoint, size_t *byte_count, Error *err)
     {
         if (utf8.empty())
             return false;
@@ -12,7 +12,8 @@ namespace Softloq::Unicode
         {
             // utf-8 one byte char range: 0000 0000 - 0111 1111
 
-            byte_count = 1;
+            if (byte_count)
+                *byte_count = 1;
             codepoint = c0;
             return true;
         }
@@ -23,7 +24,8 @@ namespace Softloq::Unicode
             const char8_t c1 = static_cast<char8_t>(utf8[1]);
             if (0x80 <= c1 && c1 <= 0xBF)
             {
-                byte_count = 2;
+                if (byte_count)
+                    *byte_count = 2;
                 codepoint = static_cast<char32_t>(((c0 - 0xC0) << 6) + (c1 - 0x80));
                 return true;
             }
@@ -36,7 +38,8 @@ namespace Softloq::Unicode
             const char8_t c2 = static_cast<char8_t>(utf8[2]);
             if (0x80 <= c1 && c1 <= 0xBF && 0x80 <= c2 && c2 <= 0xBF)
             {
-                byte_count = 3;
+                if (byte_count)
+                    *byte_count = 3;
                 codepoint = static_cast<char32_t>(((c0 - 0xE0) << 12) + ((c1 - 0x80) << 6) + (c2 - 0x80));
                 return true;
             }
@@ -50,7 +53,8 @@ namespace Softloq::Unicode
             const char8_t c3 = static_cast<char8_t>(utf8[3]);
             if (0x80 <= c1 && c1 <= 0xBF && 0x80 <= c2 && c2 <= 0xBF && 0x80 <= c3 && c3 <= 0xBF)
             {
-                byte_count = 4;
+                if (byte_count)
+                    *byte_count = 4;
                 codepoint = static_cast<char32_t>(((c0 - 0xF0) << 18) + ((c1 - 0x80) << 12) + ((c2 - 0x80) << 6) + (c3 - 0x80));
                 return true;
             }
@@ -60,7 +64,8 @@ namespace Softloq::Unicode
         if (err)
             err->message = "Undefined UTF8 Sequence.";
 
-        byte_count = 0;
+        if (byte_count)
+            *byte_count = 0;
         return false;
     }
 
@@ -97,5 +102,24 @@ namespace Softloq::Unicode
             err->message = "Expected Range 0x0 - 0x10FFFF.";
 
         return false;
+    }
+
+    SOFTLOQ_UNICODE_API UTF8CodepointVector convertStringToUTF8CodepointVector(const std::string_view &utf8, size_t *byte_count, Error *err)
+    {
+        UTF8CodepointVector vector;
+        if (byte_count)
+            *byte_count = 0;
+        for (size_t i = 0; i < utf8.size(); ++i)
+        {
+            char32_t codepoint;
+            size_t next_byte_count;
+            if (!Unicode::convertUTF8ToCodepoint(utf8.data() + i, codepoint, &next_byte_count, err))
+                return UTF8CodepointVector{};
+            vector.push_back(codepoint);
+            if (byte_count)
+                *byte_count += next_byte_count;
+            i += next_byte_count - 1;
+        }
+        return vector;
     }
 }

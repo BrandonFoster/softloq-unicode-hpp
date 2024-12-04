@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10...3.29)
-project(softloq-unicode-project VERSION 1.0.3 LANGUAGES CXX)
+project(softloq-unicode-project VERSION 1.1.0 LANGUAGES CXX)
 option(BUILD_SHARED_LIBS "Generate Shared Library" OFF)
 option(SOFTLOQ_UNICODE_BUILD_TESTING "Generate Unit-Testing" OFF)
 

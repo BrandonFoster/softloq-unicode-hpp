@@ -1,11 +1,14 @@
 [![Unit-Testing](https://github.com/BrandonFoster/softloq-unicode-hpp/actions/workflows/testing.yml/badge.svg)](https://github.com/BrandonFoster/softloq-unicode-hpp/actions/workflows/testing.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-### Version 1.0.3
+### Version 1.1.0
 # About
 [Documentation](https://brandonfoster.github.io/softloq-unicode-hpp/)
 
 Softloq Software C++ headers for Unicode functions.
+
+# Changes
+Added Softloq::Unicode::convertStringToUTF8CodepointVector()
 
 # Usage Example
 ## Codepoint to UTF-8 String
@@ -80,7 +83,7 @@ int main()
     char32_t codepoint;
     size_t byte_count;
 
-    Softloq::Unicode::convertUTF8ToCodepoint(utf8, codepoint, byte_count);
+    Softloq::Unicode::convertUTF8ToCodepoint(utf8, codepoint, &byte_count);
 
     std::cout << "0x" << std::hex << static_cast<int>(codepoint) << "\n"; // 0x41
     std::cout << byte_count << "\n"; // 1
@@ -97,7 +100,7 @@ int main()
     char32_t codepoint;
     size_t byte_count;
 
-    Softloq::Unicode::convertUTF8ToCodepoint(utf8, codepoint, byte_count);
+    Softloq::Unicode::convertUTF8ToCodepoint(utf8, codepoint, &byte_count);
 
     std::cout << "0x" << std::hex << static_cast<int>(codepoint) << "\n"; // 0xA9
     std::cout << byte_count << "\n"; // 2
@@ -114,7 +117,7 @@ int main()
     char32_t codepoint;
     size_t byte_count;
 
-    Softloq::Unicode::convertUTF8ToCodepoint(utf8, codepoint, byte_count);
+    Softloq::Unicode::convertUTF8ToCodepoint(utf8, codepoint, &byte_count);
     std::cout << "0x" << std::hex << static_cast<int>(codepoint) << "\n"; // 0x2211
     std::cout << byte_count << "\n"; // 3
 }
@@ -130,7 +133,7 @@ int main()
     char32_t codepoint;
     size_t byte_count;
 
-    Softloq::Unicode::convertUTF8ToCodepoint(utf8, codepoint, byte_count);
+    Softloq::Unicode::convertUTF8ToCodepoint(utf8, codepoint, &byte_count);
     std::cout << "0x" << std::hex << static_cast<int>(codepoint) << "\n"; // 0x1F610
     std::cout << byte_count << "\n"; // 4
 }
