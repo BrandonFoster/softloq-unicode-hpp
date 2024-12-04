@@ -11,7 +11,7 @@ TEST_CASE("Unicode UTF-8 to Codepoint", "[utf8-to-codepoint]")
         char32_t codepoint;
         size_t byte_count;
 
-        REQUIRE(Unicode::convertUTF8ToCodepoint(utf8, codepoint, byte_count));
+        REQUIRE(Unicode::convertUTF8ToCodepoint(utf8, codepoint, &byte_count));
         REQUIRE(byte_count == 1);
         REQUIRE(codepoint == 'A');
     }
@@ -22,7 +22,7 @@ TEST_CASE("Unicode UTF-8 to Codepoint", "[utf8-to-codepoint]")
         char32_t codepoint;
         size_t byte_count;
 
-        REQUIRE(Unicode::convertUTF8ToCodepoint(utf8, codepoint, byte_count));
+        REQUIRE(Unicode::convertUTF8ToCodepoint(utf8, codepoint, &byte_count));
         REQUIRE(byte_count == 2);
         REQUIRE(codepoint == 0xA9);
     }
@@ -33,7 +33,7 @@ TEST_CASE("Unicode UTF-8 to Codepoint", "[utf8-to-codepoint]")
         char32_t codepoint;
         size_t byte_count;
 
-        REQUIRE(Unicode::convertUTF8ToCodepoint(utf8, codepoint, byte_count));
+        REQUIRE(Unicode::convertUTF8ToCodepoint(utf8, codepoint, &byte_count));
         REQUIRE(byte_count == 3);
         REQUIRE(codepoint == 0x2211);
     }
@@ -44,7 +44,7 @@ TEST_CASE("Unicode UTF-8 to Codepoint", "[utf8-to-codepoint]")
         char32_t codepoint;
         size_t byte_count;
 
-        REQUIRE(Unicode::convertUTF8ToCodepoint(utf8, codepoint, byte_count));
+        REQUIRE(Unicode::convertUTF8ToCodepoint(utf8, codepoint, &byte_count));
         REQUIRE(byte_count == 4);
         REQUIRE(codepoint == 0x1F610);
     }
